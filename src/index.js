@@ -7,7 +7,7 @@ import schema from './schema'
 
 require('dotenv').config()
 
-const port = process.env.PORT || 3003
+const port = process.env.PORT || 3001
 
 const app = express()
 

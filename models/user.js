@@ -23,11 +23,15 @@ export default (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    salt: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   })
 
   User.prototype.passwordMatches = async function (value) {
-    const encryptedValue = await encryptValue(value, sequelize.models.salt)
+    const encryptedValue = await encryptValue(value, this.salt)
     return (encryptedValue === this.password)
   }
 
@@ -40,7 +44,7 @@ export default (sequelize, DataTypes) => {
   }
 
   User.getEncryptedPassword = async function (plainPassword) {
-    const encryptedValue = await encryptValue(plainPassword, sequelize.models.salt)
+    const encryptedValue = await encryptValue(plainPassword, this.salt)
     return encryptedValue
   }
 

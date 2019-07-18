@@ -5,7 +5,6 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
-        allowNull: false,
         defaultValue: Sequelize.UUIDV4
       },
       firstName: {
@@ -25,12 +24,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      salt: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     })
