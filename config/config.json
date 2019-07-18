@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "Mauro",
+    "password": "Pucheta",
+    "database": "chat-platform-training",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "Mauro",
+    "password": "Pucheta",
+    "database": "chat-platform-training",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "Mauro",
+    "password": "Pucheta",
+    "database": "chat-platform-training",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}
