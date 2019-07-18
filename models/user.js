@@ -1,7 +1,4 @@
-import crypto from 'crypto'
-
-const ENCODING = 'hex'
-const HASH_FUNCTION = 'md5'
+import encryptValue from '../encryption/encryption'
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
@@ -30,23 +27,8 @@ export default (sequelize, DataTypes) => {
   })
 
   User.prototype.passwordMatches = async function (value) {
-    const encryptedValue = await encryptValue(value)
+    const encryptedValue = await encryptValue(value, sequelize.models.salt)
     return (encryptedValue === this.password)
-  }
-
-  async function encryptValue (value, models = sequelize.models) {
-    const hash = crypto.createHash(HASH_FUNCTION)
-
-    const valueBuffer = Buffer.from([value])
-    hash.update(valueBuffer)
-
-    const salt = await models.salt.getPasswordSalt()
-    const saltBuffer = Buffer.from([salt])
-    hash.update(saltBuffer)
-
-    const encryptedValue = hash.digest(ENCODING)
-
-    return encryptedValue
   }
 
   User.hashPasswordHook = async function (user) {
@@ -58,7 +40,8 @@ export default (sequelize, DataTypes) => {
   }
 
   User.getEncryptedPassword = async function (plainPassword) {
-    return encryptValue(plainPassword)
+    const encryptedValue = await encryptValue(plainPassword, sequelize.models.salt)
+    return encryptedValue
   }
 
   User.beforeCreate(User.hashPasswordHook.bind(User))
