@@ -17,3 +17,7 @@ export default async function encryptValue (value, saltModel) {
 
   return encryptedValue
 }
+
+export function randomBytes (bytes = 16) {
+  return crypto.randomBytes(bytes).toString(ENCODING)
+}

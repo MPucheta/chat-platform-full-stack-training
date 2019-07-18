@@ -1,5 +1,4 @@
-import crypto from 'crypto'
-import { ENCODING } from '../encryption/encryption'
+import { randomBytes } from '../encryption/encryption'
 
 export default (sequelize, DataTypes) => {
   const Salt = sequelize.define('salt', {
@@ -28,7 +27,7 @@ export default (sequelize, DataTypes) => {
   }
 
   Salt.createRandom = function (bytes = 16) {
-    return this.create({ value: crypto.randomBytes(bytes).toString(ENCODING) })
+    return this.create({ value: randomBytes })
   }
 
   return Salt
