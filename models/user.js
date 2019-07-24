@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
     },
     salt: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     }
   })
 
@@ -40,16 +40,15 @@ export default (sequelize, DataTypes) => {
     return encryptedPassword
   }
 
-  User.beforeCreate(User.hashPasswordHook.bind(User))
-  User.beforeUpdate(User.hashPasswordHook.bind(User))
-
   User.hashPasswordHook = function (user) {
     if (!user.password || !user.changed('password')) {
       return user
     }
     user.salt = getRandomSalt()
-    user.password = this.encryptValue(user.password, user.salt)
+    user.password = encryptValue(user.password, user.salt)
   }
+  User.beforeCreate(User.hashPasswordHook.bind(User))
+  User.beforeUpdate(User.hashPasswordHook.bind(User))
 
   return User
 }

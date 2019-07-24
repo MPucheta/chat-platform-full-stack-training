@@ -3,7 +3,7 @@ import crypto from 'crypto'
 export const ENCODING = 'hex'
 export const HASH_FUNCTION = 'md5'
 
-export default function encryptValue (value, salt) {
+export function encryptValue (value, salt) {
   const hash = crypto.createHash(HASH_FUNCTION)
 
   const valueBuffer = Buffer.from([value])
