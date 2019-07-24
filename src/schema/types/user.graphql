@@ -4,6 +4,5 @@ type User {
     lastName: String!
     username: String!
     password: String!
-    salt: String
 }
 

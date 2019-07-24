@@ -36,9 +36,6 @@ const resolvers = {
     },
     password: (user) => {
       return user.password
-    },
-    salt: (user) => {
-      return user.salt
     }
 
   },
