@@ -1,4 +1,4 @@
-import encryptValue from '../encryption/encryption'
+import { encryptValue, getRandomSalt } from '../encryption/encryption'
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
@@ -30,26 +30,26 @@ export default (sequelize, DataTypes) => {
     }
   })
 
-  User.prototype.passwordMatches = async function (value) {
-    const encryptedValue = await encryptValue(value, this.salt)
-    return (encryptedValue === this.password)
+  User.prototype.passwordMatches = function (password) {
+    const encryptedPassword = User.getEncryptedPassword(password)
+    return (encryptedPassword === this.password)
   }
 
-  User.hashPasswordHook = async function (user) {
-    if (!user.password) {
-      return user
-    }
-
-    user.password = await User.getEncryptedPassword(user.password)
-  }
-
-  User.getEncryptedPassword = async function (plainPassword) {
-    const encryptedValue = await encryptValue(plainPassword, this.salt)
-    return encryptedValue
+  User.getEncryptedPassword = function (plainPassword) {
+    const encryptedPassword = encryptValue(plainPassword, this.salt)
+    return encryptedPassword
   }
 
   User.beforeCreate(User.hashPasswordHook.bind(User))
   User.beforeUpdate(User.hashPasswordHook.bind(User))
+
+  User.hashPasswordHook = function (user) {
+    if (!user.password || !user.changed('password')) {
+      return user
+    }
+    user.salt = getRandomSalt()
+    user.password = this.encryptValue(user.password, user.salt)
+  }
 
   return User
 }

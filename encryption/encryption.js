@@ -3,7 +3,7 @@ import crypto from 'crypto'
 export const ENCODING = 'hex'
 export const HASH_FUNCTION = 'md5'
 
-export default async function encryptValue (value, salt) {
+export default function encryptValue (value, salt) {
   const hash = crypto.createHash(HASH_FUNCTION)
 
   const valueBuffer = Buffer.from([value])
@@ -17,6 +17,6 @@ export default async function encryptValue (value, salt) {
   return encryptedValue
 }
 
-export function randomBytes (bytes = 16) {
+export function getRandomSalt (bytes = 16) {
   return crypto.randomBytes(bytes).toString(ENCODING)
 }
