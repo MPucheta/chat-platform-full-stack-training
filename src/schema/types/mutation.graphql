@@ -2,13 +2,11 @@
 type Mutation {
   _empty: String
   
-  createUser(
-    id: ID!, 
+  createUser( 
     firstName: String!, 
     lastName: String!, 
     username: String!, 
     password: String!, 
-    salt: String!
   ): User
 
 }

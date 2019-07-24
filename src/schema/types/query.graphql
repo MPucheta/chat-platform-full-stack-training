@@ -2,6 +2,5 @@
 type Query {
   _empty: String
   users: [User]
-  user( id: ID!): User
-  test: String
+  user( username: String): User
 }
