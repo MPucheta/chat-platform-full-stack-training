@@ -1,4 +1,14 @@
 # This is an empty type, meant to be extended by other entities.
 type Mutation {
   _empty: String
+  
+  createUser(
+    id: ID!, 
+    firstName: String!, 
+    lastName: String!, 
+    username: String!, 
+    password: String!, 
+    salt: String!
+  ): User
+
 }
