@@ -46,7 +46,9 @@ const resolvers = {
   Mutation: {
     createUser: (_, { firstName, lastName, username, password }) => {
       const newUUID = uuid()
-      return UserModel.create({ id: newUUID,
+
+      return UserModel.create({
+        id: newUUID,
         firstName: firstName,
         lastName: lastName,
         username: username,
