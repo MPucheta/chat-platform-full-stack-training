@@ -26,13 +26,13 @@ export default (sequelize, DataTypes) => {
     },
     salt: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     }
   })
 
   User.prototype.passwordMatches = function (password) {
     const encryptedPassword = User.getEncryptedPassword(password)
-    return (encryptedPassword === this.password)
+    return encryptedPassword === this.password
   }
 
   User.getEncryptedPassword = function (plainPassword) {
@@ -47,7 +47,8 @@ export default (sequelize, DataTypes) => {
     user.salt = getRandomSalt()
     user.password = encryptValue(user.password, user.salt)
   }
-  User.beforeCreate(User.hashPasswordHook.bind(User))
+
+  User.beforeValidate(User.hashPasswordHook.bind(User))
   User.beforeUpdate(User.hashPasswordHook.bind(User))
 
   return User
