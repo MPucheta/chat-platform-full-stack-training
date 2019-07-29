@@ -1,4 +1,4 @@
-import { encryptValue, getRandomSalt } from '~/src/encryption'
+import { encryptValue, getRandomSalt } from '~/src/encryption/encryption'
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('user', {

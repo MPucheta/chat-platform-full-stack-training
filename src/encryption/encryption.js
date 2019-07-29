@@ -4,13 +4,10 @@ export const ENCODING = 'hex'
 export const HASH_FUNCTION = 'md5'
 
 export function encryptValue (value, salt) {
-  const hash = crypto.createHash(HASH_FUNCTION)
-
-  hash.update(value + salt)
-
-  const encryptedValue = hash.digest(ENCODING)
-
-  return encryptedValue
+  return crypto
+    .createHash(HASH_FUNCTION)
+    .update(value + salt)
+    .digest(ENCODING)
 }
 
 export function getRandomSalt (bytes = 16) {
