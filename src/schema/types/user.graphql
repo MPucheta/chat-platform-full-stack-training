@@ -1,4 +1,5 @@
 type User {
+  id: ID!
   firstName: String!
   lastName: String!
   username: String!
@@ -15,6 +16,7 @@ extend type Mutation {
 }
 
 extend type Query {
-  users: [User]
+  users: [User!]
   user(username: String): User
+  currentUser: User
 }
