@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4
       },
-      firstName: {
+      firstname: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      lastName: {
+      lastname: {
         type: Sequelize.STRING,
         allowNull: false
       },

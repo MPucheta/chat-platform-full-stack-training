@@ -1,6 +1,6 @@
 input SignupInput {
-  firstName: String!
-  lastName: String!
+  firstname: String!
+  lastname: String!
   username: String!
   password: String!
 }

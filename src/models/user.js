@@ -8,11 +8,11 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    firstName: {
+    firstname: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    lastName: {
+    lastname: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -42,7 +42,7 @@ export default (sequelize, DataTypes) => {
   }
 
   User.prototype.generateJWT = function () {
-    return generateJWT({ username: this.username, firstName: this.firstName, lastName: this.lastName }, this.id)
+    return generateJWT({ username: this.username, firstname: this.firstname, lastname: this.lastname }, this.id)
   }
 
   User.hashPasswordHook = function (user) {
