@@ -9,6 +9,7 @@ const resolvers = {
           throw new Error('password does not match')
         }
         const jwt = user.generateJWT()
+
         return ({ user, jwt, authError: null })
       } catch (err) {
         return ({ user: null, jwt: null, authError: err })

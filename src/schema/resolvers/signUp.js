@@ -6,6 +6,7 @@ const resolvers = {
       try {
         const user = await models.user.create(signUpInput.data)
         const jwt = user.generateJWT()
+
         return ({ user, jwt, authError: null })
       } catch (err) {
         return ({ user: null, jwt: null, authError: err })

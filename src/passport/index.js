@@ -6,16 +6,14 @@ require('dotenv').config()
 
 const options = {}
 options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-options.secretOrKey = process.env.SECRET
+options.secretOrKey = process.env.SECRET || 'secret'
 
 const passportRef = passport.use(new JwtStrategy(options, async function (jwtPayload, done) {
-  let user, error
   try {
-    user = await models.user.findOne({ where: { id: jwtPayload.sub } })
+    return done(null, await models.user.findOne({ where: { id: jwtPayload.sub } }))
   } catch (err) {
-    error = err
+    return done(err)
   }
-  return done(error, user)
 })
 )
 
