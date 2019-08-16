@@ -12,10 +12,7 @@ const server = new ApolloServer({
   instrospection: true,
   playground: true,
   tracing: true,
-  context: ({ req }) => {
-    const currentUser = req.user
-    return { currentUser }
-  }
+  context: ({ req }) => ({ currentUser: req.user })
 })
 
 const app = express()
