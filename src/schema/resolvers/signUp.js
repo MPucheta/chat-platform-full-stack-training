@@ -9,7 +9,7 @@ const resolvers = {
 
         return ({ user, jwt, authError: null })
       } catch (err) {
-        return ({ user: null, jwt: null, authError: err })
+        return ({ user: null, jwt: null, authError: err.message })
       }
     }
   }
