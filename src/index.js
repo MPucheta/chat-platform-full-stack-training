@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-express'
 import { createServer } from 'http'
 import schema from './schema'
 import { passportMiddleWare } from './passport'
+import cors from 'cors'
 
 require('dotenv').config()
 
@@ -16,6 +17,12 @@ const server = new ApolloServer({
 })
 
 const app = express()
+
+app.use(cors({
+  origin: true,
+  credentials: true
+}))
+
 app.use(passportMiddleWare.initialize())
 app.use(passportMiddleWare.authenticate('jwt', { session: false }), (req, res, next) => {
   server.context({ req })

@@ -7,7 +7,6 @@ const resolvers = {
     user: (_, username) => models.user.findOne({ where: username }),
 
     currentUser: (parent, args, context) => context.currentUser
-
   },
 
   Mutation: {
