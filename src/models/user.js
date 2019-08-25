@@ -1,4 +1,5 @@
-import { encryptValue, getRandomSalt } from '~/src/encryption/encryption'
+import { encryptValue, getRandomSalt } from '~/src/encryption'
+import { generateJWTFromUser } from '~/src/jwt'
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
@@ -7,11 +8,11 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    firstName: {
+    firstname: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    lastName: {
+    lastname: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -31,13 +32,15 @@ export default (sequelize, DataTypes) => {
   })
 
   User.prototype.passwordMatches = function (password) {
-    const encryptedPassword = User.getEncryptedPassword(password)
-    return encryptedPassword === this.password
+    return this.getEncryptedPassword(password) === this.password
   }
 
-  User.getEncryptedPassword = function (plainPassword) {
-    const encryptedPassword = encryptValue(plainPassword, this.salt)
-    return encryptedPassword
+  User.prototype.getEncryptedPassword = function (plainPassword) {
+    return encryptValue(plainPassword, this.salt)
+  }
+
+  User.prototype.generateJWT = function () {
+    return generateJWTFromUser(this)
   }
 
   User.hashPasswordHook = function (user) {

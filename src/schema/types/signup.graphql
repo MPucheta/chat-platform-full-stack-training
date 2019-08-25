@@ -1,0 +1,10 @@
+input SignupInput {
+  firstname: String!
+  lastname: String!
+  username: String!
+  password: String!
+}
+
+extend type Mutation {
+  signup(data: SignupInput!): AuthenticationResult!
+}

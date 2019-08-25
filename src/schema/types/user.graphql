@@ -1,20 +1,22 @@
 type User {
-  firstName: String!
-  lastName: String!
+  id: ID!
+  firstname: String!
+  lastname: String!
   username: String!
   password: String!
 }
 
 extend type Mutation {
   createUser( 
-    firstName: String!, 
-    lastName: String!, 
-    username: String!, 
+    firstname: String!,
+    lastname: String!,
+    username: String!,
     password: String!
   ): User
 }
 
 extend type Query {
-  users: [User]
-  user(username: String): User
+  users: [User!]
+  user(username: String!): User
+  currentUser: User
 }
