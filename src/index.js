@@ -24,10 +24,10 @@ app.use(cors({
 }))
 
 app.use(passportMiddleWare.initialize())
-app.use(passportMiddleWare.authenticate('jwt', { session: false }), (req, res, next) => {
-  server.context({ req })
+app.use((req, res, next) => passportMiddleWare.authenticate('jwt', { session: false }, (_, user) => {
+  req.user = user
   next()
-})
+})(req, res, next))
 
 server.applyMiddleware({ app })
 

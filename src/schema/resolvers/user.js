@@ -1,4 +1,8 @@
+import { combineResolvers } from 'graphql-resolvers'
 import models from '~/src/models'
+import requireAuthenticated from '../requireAuthenticated'
+
+const currentUser = (root, args, context, info) => context.currentUser
 
 const resolvers = {
   Query: {
@@ -6,7 +10,7 @@ const resolvers = {
 
     user: (_, username) => models.user.findOne({ where: username }),
 
-    currentUser: (parent, args, context) => context.currentUser
+    currentUser: combineResolvers(requireAuthenticated, currentUser)
   },
 
   Mutation: {
