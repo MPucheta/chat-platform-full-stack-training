@@ -1,11 +1,10 @@
+import dotenv from 'dotenv/config'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { createServer } from 'http'
 import schema from './schema'
 import { passportMiddleWare } from './passport'
 import cors from 'cors'
-
-require('dotenv').config()
 
 const port = process.env.PORT || 3001
 const server = new ApolloServer({
